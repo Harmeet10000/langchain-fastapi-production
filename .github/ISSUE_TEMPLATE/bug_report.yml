@@ -1,0 +1,74 @@
+name: 🐛 Bug Report
+description: Create a report to help us improve
+title: '[Bug]: '
+labels: ['bug', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+  - type: checkboxes
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I have searched the existing issues
+          required: true
+        - label: I'm running the latest version
+          required: true
+
+  - type: input
+    attributes:
+      label: Node.js Version
+      description: What version of Node.js are you running?
+      placeholder: v22.14.0
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: Environment
+      description: Where is this bug occurring?
+      options:
+        - Development
+        - Production
+        - Testing
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Current Behavior
+      description: A clear description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: A clear description of what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Error Logs
+      description: Please copy and paste any relevant error logs
+      render: shell
+
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here

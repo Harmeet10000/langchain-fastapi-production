@@ -1,0 +1,126 @@
+name: Greetings
+
+on:
+  pull_request_target:
+    types: [opened]
+  issues:
+    types: [opened]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Greet First Time Contributors
+        uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: |
+            👋 **Welcome to Production-Grade Auth Template!**
+
+            Thank you for opening your first issue! We're excited to have you as part of our community.
+
+            **Before we proceed, please ensure:**
+            - [ ] You've searched existing issues to avoid duplicates
+            - [ ] You've provided a clear description of the problem
+            - [ ] You've included steps to reproduce (if applicable)
+            - [ ] You've specified your environment details
+
+            Our maintainers will review your issue soon. Feel free to join our discussions and contribute to making this project better! 🚀
+
+            **Useful Resources:**
+            - 📖 [Documentation](https://github.com/harmeet10000/ts-backend-production-template#readme)
+            - 🐛 [Bug Report Template](https://github.com/Harmeet10000/ts-backend-production-template/tree/js-mongoDB/.github/ISSUE_TEMPLATE/bug_report.yml)
+            - ✨ [Feature Request Template](https://github.com/Harmeet10000/ts-backend-production-template/tree/js-mongoDB/.github/ISSUE_TEMPLATE/feature_request.yml)
+
+          pr-message: |
+            🎉 **Congratulations on your first Pull Request!**
+
+            Thank you for contributing to the Production-Grade Auth Template! Your contribution is valuable to our community.
+
+            **Please ensure your PR:**
+            - [ ] Follows our [coding guidelines](.github/copilot-instructions.md)
+            - [ ] Includes appropriate tests
+            - [ ] Updates documentation if needed
+            - [ ] Has a clear, descriptive title
+            - [ ] References related issues (if any)
+
+            **Our Review Process:**
+            - ✅ Automated checks will run shortly
+            - 👀 A maintainer will review your changes
+            - 💬 We may request changes or ask questions
+            - 🎯 Once approved, we'll merge your contribution
+
+            **Getting Started:**
+            - 📋 Check our [Contributing Guidelines](CONTRIBUTING.md)
+            - 🔧 Run `npm run lint` and `npm run test` locally
+            - 📝 Follow [Conventional Commits](https://conventionalcommits.org/)
+
+            Thanks for making this project better! 🙌
+
+      - name: Add Labels to Issues
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['needs-triage', 'first-time-contributor']
+            });
+
+      - name: Add Labels to PRs
+        if: github.event_name == 'pull_request_target'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['needs-review', 'first-time-contributor']
+            });
+
+      - name: Request Reviewers for PRs
+        if: github.event_name == 'pull_request_target'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+
+            // Add maintainers as reviewers (replace with actual usernames)
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner,
+                repo,
+                pull_number,
+                reviewers: ['harmeet10000'] // Add your maintainer usernames here
+              });
+            } catch (error) {
+              console.log('Could not request reviewers:', error.message);
+            }
+
+      - name: Welcome Comment for Large PRs
+        if: github.event_name == 'pull_request_target'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+            const additions = context.payload.pull_request.additions;
+            const deletions = context.payload.pull_request.deletions;
+
+            if (additions + deletions > 500) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: pull_number,
+                body: `🔍 **Large PR Detected**\n\nThis PR contains ${additions + deletions} changes. Consider breaking it into smaller, focused PRs for easier review.\n\n**Tips for better PRs:**\n- Keep changes focused on a single feature/fix\n- Aim for <300 lines of changes\n- Add clear descriptions and tests\n\nThanks for contributing! 🚀`
+              });
+            }

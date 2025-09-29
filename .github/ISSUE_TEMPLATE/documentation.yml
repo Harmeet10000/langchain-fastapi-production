@@ -1,0 +1,44 @@
+name: 📚 Documentation
+description: Report missing or inaccurate documentation
+title: '[Docs]: '
+labels: ['documentation']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to improve our documentation!
+
+  - type: dropdown
+    attributes:
+      label: Type of Documentation Issue
+      description: What type of documentation issue is this?
+      options:
+        - Missing Documentation
+        - Incorrect Documentation
+        - Unclear Documentation
+        - Outdated Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Location
+      description: Where is the documentation issue located?
+      placeholder: README.md, API docs, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Description
+      description: Please describe what needs to be added or changed
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Suggested Changes
+      description: If you have specific suggestions for the documentation, please provide them here
+    validations:
+      required: false
