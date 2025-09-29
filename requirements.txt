@@ -1,0 +1,81 @@
+# Core FastAPI dependencies
+fastapi==0.110.0
+uvicorn[standard]==0.27.1
+pydantic==2.6.3
+pydantic-settings==2.2.1
+python-multipart==0.0.9
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+email-validator==2.1.1
+httpx==0.27.0
+
+# LangChain ecosystem
+langchain==0.1.13
+langchain-community==0.0.29
+langchain-google-genai==1.0.1
+langchain-experimental==0.0.54
+langgraph==0.0.37
+langsmith==0.1.31
+
+# Google Gemini
+google-generativeai==0.4.1
+google-ai-generativelanguage==0.6.1
+
+# Vector store and embeddings
+pinecone-client==3.1.0
+tiktoken==0.6.0
+
+# Document processing
+docling==1.5.0
+pypdf==4.1.0
+python-docx==1.1.0
+openpyxl==3.1.2
+python-pptx==0.6.23
+beautifulsoup4==4.12.3
+markdownify==0.11.6
+
+# Web crawling
+crawl4ai==0.2.77
+playwright==1.42.0
+selenium==4.18.1
+
+# Database and caching
+redis==5.0.3
+motor==3.3.2
+pymongo==4.6.2
+sqlalchemy==2.0.28
+alembic==1.13.1
+
+# Monitoring and logging
+python-json-logger==2.0.7
+structlog==24.1.0
+opentelemetry-api==1.23.0
+opentelemetry-sdk==1.23.0
+opentelemetry-instrumentation-fastapi==0.44b0
+prometheus-client==0.20.0
+
+# Testing
+pytest==8.1.1
+pytest-asyncio==0.23.5
+pytest-cov==4.1.0
+faker==24.1.0
+
+# Development tools
+black==24.2.0
+isort==5.13.2
+mypy==1.9.0
+pylint==3.1.0
+pre-commit==3.6.2
+
+# Additional utilities
+python-dotenv==1.0.1
+tenacity==8.2.3
+aiofiles==23.2.1
+orjson==3.9.15
+ujson==5.9.0
+numpy==1.26.4
+pandas==2.2.1
+scikit-learn==1.4.1.post1
+
+# API documentation
+slowapi==0.1.9
